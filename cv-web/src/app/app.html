@@ -1,0 +1,276 @@
+<!-- Unified Sticky Header: Identity, Tech Stack, Actions, and Navigation Tabs (Hidden in print) -->
+<header class="no-print sticky top-0 z-40 w-full backdrop-blur-md bg-zinc-50/95 dark:bg-zinc-950/95 border-b border-zinc-200/80 dark:border-zinc-800/80 shadow-xs transition-colors">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
+    
+    <!-- Top Row: Profile Identity + Action Buttons (Separator removed) -->
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5 pb-3">
+      
+      <!-- Left: Photo Avatar + Full Name + Professional Title + Location -->
+      <div class="flex items-center gap-4 sm:gap-6 min-w-0">
+        <a href="#" (click)="setActiveTab('sobre-mi'); $event.preventDefault()" class="relative shrink-0 group">
+          <div class="w-18 h-18 sm:w-22 sm:h-22 md:w-24 md:h-24 rounded-2xl overflow-hidden border-2 border-zinc-200/90 dark:border-zinc-800 shadow-md bg-zinc-100 dark:bg-zinc-900 group-hover:border-zinc-400 dark:group-hover:border-zinc-600 transition-colors">
+            <img 
+              [src]="profile.photoUrl" 
+              [alt]="profile.fullName" 
+              class="w-full h-full object-cover object-top" 
+              loading="eager" />
+          </div>
+        </a>
+
+        <div class="min-w-0 space-y-1">
+          <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 leading-tight">
+            {{ profile.fullName }}
+          </h1>
+          <p class="text-sm sm:text-base font-semibold text-zinc-700 dark:text-zinc-300">
+            {{ profile.title }}
+          </p>
+          <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-mono">
+            {{ profile.contact.location }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Action Buttons + Core Tech Stack -->
+      <div class="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-3 shrink-0">
+        
+        <!-- Action Buttons Row (40-44px buttons) -->
+        <div class="action-buttons flex items-center gap-2 sm:gap-2.5 flex-wrap">
+          <!-- Copy Email -->
+          <button 
+            type="button" 
+            [appTooltip]="'Copiar correo: ' + profile.contact.email" 
+            (click)="copyEmail()" 
+            class="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shadow-2xs cursor-pointer"
+            aria-label="Copiar correo electrónico">
+            <fa-icon [icon]="['fas', 'envelope']" class="text-base text-zinc-600 dark:text-zinc-300"></fa-icon>
+          </button>
+
+          <!-- Copy Phone -->
+          <button 
+            type="button" 
+            [appTooltip]="'Copiar teléfono: ' + profile.contact.phoneFormatted" 
+            (click)="copyPhone()" 
+            class="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shadow-2xs cursor-pointer"
+            aria-label="Copiar teléfono">
+            <fa-icon [icon]="['fas', 'phone']" class="text-base text-zinc-600 dark:text-zinc-300"></fa-icon>
+          </button>
+
+          <!-- Download PDF -->
+          <a 
+            [href]="profile.contact.pdfUrl" 
+            target="_blank" 
+            download 
+            appTooltip="Descargar CV en PDF" 
+            class="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shadow-2xs cursor-pointer"
+            aria-label="Descargar CV en PDF">
+            <fa-icon [icon]="['fas', 'file-pdf']" class="text-base text-red-600 dark:text-red-400"></fa-icon>
+          </a>
+
+          <!-- LinkedIn -->
+          <a 
+            [href]="profile.contact.linkedinUrl" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            appTooltip="Perfil de LinkedIn" 
+            class="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shadow-2xs cursor-pointer"
+            aria-label="Perfil de LinkedIn">
+            <svg class="w-5 h-5 fill-[#0A66C2]" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.66 1.66 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66Z"/></svg>
+          </a>
+
+          <!-- GitHub -->
+          <a 
+            [href]="profile.contact.githubUrl" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            appTooltip="Perfil de GitHub" 
+            class="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all shadow-2xs cursor-pointer"
+            aria-label="Perfil de GitHub">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+          </a>
+
+          <!-- Theme Toggle -->
+          <app-theme-toggle></app-theme-toggle>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row: Navigation Tabs (Full Width Grid extending to theme toggle, borderless clean container with cursor spotlight) -->
+    <div class="pt-2 sm:pt-3 w-full">
+      <nav class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 w-full" aria-label="Navegación del CV">
+        
+        <!-- Tab: Sobre Mí -->
+        <button 
+          type="button" 
+          (click)="setActiveTab('sobre-mi')"
+          (mousemove)="onTabMouseMove($event)"
+          (mouseleave)="onTabMouseLeave($event)"
+          [class.active]="activeTab() === 'sobre-mi'"
+          class="tab-glow relative flex items-center justify-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl text-sm sm:text-base font-semibold transition-all cursor-pointer select-none text-center"
+          [class.bg-zinc-900]="activeTab() === 'sobre-mi'"
+          [class.text-white]="activeTab() === 'sobre-mi'"
+          [class.dark:bg-white]="activeTab() === 'sobre-mi'"
+          [class.dark:text-zinc-950]="activeTab() === 'sobre-mi'"
+          [class.shadow-sm]="activeTab() === 'sobre-mi'"
+          [class.bg-zinc-100/70]="activeTab() !== 'sobre-mi'"
+          [class.dark:bg-zinc-900/60]="activeTab() !== 'sobre-mi'"
+          [class.text-zinc-600]="activeTab() !== 'sobre-mi'"
+          [class.dark:text-zinc-400]="activeTab() !== 'sobre-mi'"
+          [class.hover:text-zinc-900]="activeTab() !== 'sobre-mi'"
+          [class.dark:hover:text-zinc-100]="activeTab() !== 'sobre-mi'"
+          [class.border]="true"
+          [class.border-zinc-200/80]="activeTab() !== 'sobre-mi'"
+          [class.dark:border-zinc-800/80]="activeTab() !== 'sobre-mi'"
+          [class.border-transparent]="activeTab() === 'sobre-mi'">
+          <fa-icon [icon]="['fas', 'user']" class="text-sm shrink-0"></fa-icon>
+          <span class="truncate">Sobre Mí</span>
+        </button>
+
+        <!-- Tab: Experiencia -->
+        <button 
+          type="button" 
+          (click)="setActiveTab('experiencia')"
+          (mousemove)="onTabMouseMove($event)"
+          (mouseleave)="onTabMouseLeave($event)"
+          [class.active]="activeTab() === 'experiencia'"
+          class="tab-glow relative flex items-center justify-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl text-sm sm:text-base font-semibold transition-all cursor-pointer select-none text-center"
+          [class.bg-zinc-900]="activeTab() === 'experiencia'"
+          [class.text-white]="activeTab() === 'experiencia'"
+          [class.dark:bg-white]="activeTab() === 'experiencia'"
+          [class.dark:text-zinc-950]="activeTab() === 'experiencia'"
+          [class.shadow-sm]="activeTab() === 'experiencia'"
+          [class.bg-zinc-100/70]="activeTab() !== 'experiencia'"
+          [class.dark:bg-zinc-900/60]="activeTab() !== 'experiencia'"
+          [class.text-zinc-600]="activeTab() !== 'experiencia'"
+          [class.dark:text-zinc-400]="activeTab() !== 'experiencia'"
+          [class.hover:text-zinc-900]="activeTab() !== 'experiencia'"
+          [class.dark:hover:text-zinc-100]="activeTab() !== 'experiencia'"
+          [class.border]="true"
+          [class.border-zinc-200/80]="activeTab() !== 'experiencia'"
+          [class.dark:border-zinc-800/80]="activeTab() !== 'experiencia'"
+          [class.border-transparent]="activeTab() === 'experiencia'">
+          <fa-icon [icon]="['fas', 'briefcase']" class="text-sm shrink-0"></fa-icon>
+          <span class="truncate">Experiencia</span>
+        </button>
+
+        <!-- Tab: Habilidades -->
+        <button 
+          type="button" 
+          (click)="setActiveTab('habilidades')"
+          (mousemove)="onTabMouseMove($event)"
+          (mouseleave)="onTabMouseLeave($event)"
+          [class.active]="activeTab() === 'habilidades'"
+          class="tab-glow relative flex items-center justify-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl text-sm sm:text-base font-semibold transition-all cursor-pointer select-none text-center"
+          [class.bg-zinc-900]="activeTab() === 'habilidades'"
+          [class.text-white]="activeTab() === 'habilidades'"
+          [class.dark:bg-white]="activeTab() === 'habilidades'"
+          [class.dark:text-zinc-950]="activeTab() === 'habilidades'"
+          [class.shadow-sm]="activeTab() === 'habilidades'"
+          [class.bg-zinc-100/70]="activeTab() !== 'habilidades'"
+          [class.dark:bg-zinc-900/60]="activeTab() !== 'habilidades'"
+          [class.text-zinc-600]="activeTab() !== 'habilidades'"
+          [class.dark:text-zinc-400]="activeTab() !== 'habilidades'"
+          [class.hover:text-zinc-900]="activeTab() !== 'habilidades'"
+          [class.dark:hover:text-zinc-100]="activeTab() !== 'habilidades'"
+          [class.border]="true"
+          [class.border-zinc-200/80]="activeTab() !== 'habilidades'"
+          [class.dark:border-zinc-800/80]="activeTab() !== 'habilidades'"
+          [class.border-transparent]="activeTab() === 'habilidades'">
+          <fa-icon [icon]="['fas', 'code']" class="text-sm shrink-0"></fa-icon>
+          <span class="truncate">Habilidades</span>
+        </button>
+
+        <!-- Tab: Estudios & Certificaciones -->
+        <button 
+          type="button" 
+          (click)="setActiveTab('estudios')"
+          (mousemove)="onTabMouseMove($event)"
+          (mouseleave)="onTabMouseLeave($event)"
+          [class.active]="activeTab() === 'estudios'"
+          class="tab-glow relative flex items-center justify-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl text-sm sm:text-base font-semibold transition-all cursor-pointer select-none text-center"
+          [class.bg-zinc-900]="activeTab() === 'estudios'"
+          [class.text-white]="activeTab() === 'estudios'"
+          [class.dark:bg-white]="activeTab() === 'estudios'"
+          [class.dark:text-zinc-950]="activeTab() === 'estudios'"
+          [class.shadow-sm]="activeTab() === 'estudios'"
+          [class.bg-zinc-100/70]="activeTab() !== 'estudios'"
+          [class.dark:bg-zinc-900/60]="activeTab() !== 'estudios'"
+          [class.text-zinc-600]="activeTab() !== 'estudios'"
+          [class.dark:text-zinc-400]="activeTab() !== 'estudios'"
+          [class.hover:text-zinc-900]="activeTab() !== 'estudios'"
+          [class.dark:hover:text-zinc-100]="activeTab() !== 'estudios'"
+          [class.border]="true"
+          [class.border-zinc-200/80]="activeTab() !== 'estudios'"
+          [class.dark:border-zinc-800/80]="activeTab() !== 'estudios'"
+          [class.border-transparent]="activeTab() === 'estudios'">
+          <fa-icon [icon]="['fas', 'graduation-cap']" class="text-sm shrink-0"></fa-icon>
+          <span class="hidden md:inline truncate">Estudios & Certificaciones</span>
+          <span class="md:hidden truncate">Estudios</span>
+        </button>
+
+      </nav>
+    </div>
+
+  </div>
+</header>
+
+<!-- Main Container -->
+<main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+
+  <!-- Focused Section Content -->
+  <div class="no-print mt-8 min-h-[460px]">
+    @switch (activeTab()) {
+      @case ('sobre-mi') {
+        <div class="animate-fadeIn">
+          <app-summary [summary]="profile.summary"></app-summary>
+        </div>
+      }
+      @case ('experiencia') {
+        <div class="animate-fadeIn">
+          <app-experience [experiences]="profile.experiences"></app-experience>
+        </div>
+      }
+      @case ('habilidades') {
+        <div class="animate-fadeIn">
+          <app-skills [skillGroups]="profile.skillGroups"></app-skills>
+        </div>
+      }
+      @case ('estudios') {
+        <div class="animate-fadeIn space-y-10 sm:space-y-12">
+          <!-- 1. Academic Education -->
+          <section>
+            <app-education [education]="profile.education"></app-education>
+          </section>
+          
+          <!-- 2. Certifications & Credentials with generous spacing and separator -->
+          <section class="pt-8 sm:pt-10 border-t border-zinc-200/80 dark:border-zinc-800/80">
+            <app-certifications [certifications]="profile.certifications"></app-certifications>
+          </section>
+
+          <!-- 3. Languages at the very end with generous spacing and separator -->
+          <section class="pt-8 sm:pt-10 border-t border-zinc-200/80 dark:border-zinc-800/80">
+            <app-languages [languages]="profile.languages"></app-languages>
+          </section>
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Print-Only Full Layout for Flawless PDF Export -->
+  <div class="print-only hidden space-y-8">
+    <app-hero [profile]="profile"></app-hero>
+    <app-summary [summary]="profile.summary"></app-summary>
+    <app-experience [experiences]="profile.experiences"></app-experience>
+    <app-skills [skillGroups]="profile.skillGroups"></app-skills>
+    <app-education [education]="profile.education"></app-education>
+    <div class="pt-6 border-t border-zinc-200">
+      <app-certifications [certifications]="profile.certifications"></app-certifications>
+    </div>
+    <div class="pt-6 border-t border-zinc-200">
+      <app-languages [languages]="profile.languages"></app-languages>
+    </div>
+  </div>
+
+</main>
+
+<!-- Global Toast Notification -->
+<app-toast></app-toast>
